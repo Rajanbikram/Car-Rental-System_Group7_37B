@@ -1,17 +1,24 @@
+package Carrental_GroupG_37B;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Carrental_GroupG_37B;
 
+import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionListener;
+import java.util.Date;
 import javax.swing.JOptionPane;
+
+
 
 /**
  *
  * @author mamta sah
  */
 public class BookCar extends javax.swing.JFrame {
-
+private JDateChooser DateFirst;
+private JDateChooser DateSecond;
     /**
      * Creates new form BookCar
      */
@@ -32,13 +39,13 @@ public class BookCar extends javax.swing.JFrame {
         Name = new javax.swing.JTextField();
         Email = new javax.swing.JTextField();
         PhoneNum = new javax.swing.JTextField();
-        DateFirst = new com.toedter.calendar.JDateChooser();
-        DateSecond = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         Pickup = new javax.swing.JTextField();
         Drop = new javax.swing.JTextField();
         ConfirmBooking = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,24 +85,6 @@ public class BookCar extends javax.swing.JFrame {
         PhoneNum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PhoneNumActionPerformed(evt);
-            }
-        });
-
-        DateFirst.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                DateFirstFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                DateFirstFocusLost(evt);
-            }
-        });
-
-        DateSecond.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                DateSecondFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                DateSecondFocusLost(evt);
             }
         });
 
@@ -146,27 +135,26 @@ public class BookCar extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Pickup, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(Name)
-                                .addComponent(Email)
-                                .addComponent(PhoneNum)
-                                .addComponent(DateFirst, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                                .addComponent(DateSecond, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(Drop, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 32, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(ConfirmBooking)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Cancel)))
+                        .addComponent(Cancel))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Pickup, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                            .addComponent(Name, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                            .addComponent(Email)
+                            .addComponent(PhoneNum)
+                            .addComponent(Drop, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(128, 128, 128)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,10 +167,10 @@ public class BookCar extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(PhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(DateFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(DateSecond, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addComponent(Pickup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(Drop, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -363,19 +351,56 @@ public class BookCar extends javax.swing.JFrame {
                 new BookCar().setVisible(true);
             }
         });
-    }
+    }  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel;
     private javax.swing.JButton ConfirmBooking;
-    private com.toedter.calendar.JDateChooser DateFirst;
-    private com.toedter.calendar.JDateChooser DateSecond;
     private javax.swing.JTextField Drop;
     private javax.swing.JTextField Email;
     private javax.swing.JTextField Name;
     private javax.swing.JTextField PhoneNum;
     private javax.swing.JTextField Pickup;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+public String getName() {
+        return Name.getText();
+    }
+
+    public String getEmail() {
+        return Email.getText();
+    }
+
+    public String getPhoneNum() {
+        return PhoneNum.getText();
+    }
+
+    public Date getDateFirst() {
+        return DateFirst.getDate();
+    }
+
+    public Date getDateSecond() {
+        return DateSecond.getDate();
+    }
+
+    public String getPickup() {
+        return Pickup.getText();
+    }
+
+    public String getDrop() {
+        return Drop.getText();
+    }
+
+    // Added listener methods
+    public void addConfirmBookingListener(ActionListener listener) {
+        ConfirmBooking.addActionListener(listener);
+    }
+
+    public void addCancelListener(ActionListener listener) {
+        Cancel.addActionListener(listener);
+    }
 }
+
