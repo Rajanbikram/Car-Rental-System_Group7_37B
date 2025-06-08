@@ -1,17 +1,19 @@
+
+package Model;
 import java.time.LocalDate;
 
 public class BookingData {
     private String customerName;
     private String customerEmail;
     private LocalDate bookingDate;
-    private String selectedCar;
+    
 
     // Constructor
-    public BookingData(String customerName, String customerEmail, LocalDate bookingDate, String selectedCar) {
+    public BookingData(String customerName, String customerEmail, LocalDate bookingDate) {
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.bookingDate = bookingDate;
-        this.selectedCar = selectedCar;
+       
     }
 
     // Getters
@@ -27,9 +29,7 @@ public class BookingData {
         return bookingDate;
     }
 
-    public String getSelectedCar() {
-        return selectedCar;
-    }
+   
 
     // Setters
     public void setCustomerName(String customerName) {
@@ -44,7 +44,4 @@ public class BookingData {
         this.bookingDate = bookingDate;
     }
 
-    public void setSelectedCar(String selectedCar) {
-        this.selectedCar = selectedCar;
-    }
 }

@@ -20,7 +20,7 @@ public class MysqlConnection implements database{
         try{
             String username ="root";
             String password ="menukabalayar@123";
-            String database ="bhatbateni";
+            String database ="carrental";
             Connection connection;
             connection =DriverManager.getConnection(
             "jdbc:mysql://localhost:3306/" + database, username, password
@@ -59,7 +59,7 @@ public class MysqlConnection implements database{
             Statement stmp =conn.createStatement();
             ResultSet result = stmp.executeQuery(query);
             return result;
-        }catch(Expection e){
+        }catch(Exception e){
             System.out.println(e);
             return null;
             
@@ -73,7 +73,7 @@ public class MysqlConnection implements database{
             Statement stmp =conn.createStatement();
             int result = stmp.executeUpdate(query);
             return result;
-        }catch(Expection e){
+        }catch(Exception e){
             System.out.println(e);
             return -1;
         }
