@@ -27,13 +27,17 @@ public class CarBookingDao {
     }
 public static boolean bookCar(BookingData booking) {
     Connection conn = mysql.openConnection();
-    String insertSql = "INSERT INTO car_bookings (customer_name, customer_email, booking_date, status) VALUES (?, ?, ?, ?)";
+    String insertSql = "INSERT INTO car_bookings (customer_name, customer_email, booking_date, status, pickup_location, drop_location, phone_number) " +
+                       "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
         insertStmt.setString(1, booking.getCustomerName());
         insertStmt.setString(2, booking.getCustomerEmail());
         insertStmt.setDate(3, Date.valueOf(booking.getBookingDate()));
         insertStmt.setString(4, "Confirmed");
+        insertStmt.setString(5, booking.getPickupLocation());
+        insertStmt.setString(6, booking.getDropLocation());
+        insertStmt.setString(7, booking.getPhoneNumber());
         return insertStmt.executeUpdate() > 0;
     } catch (SQLException e) {
         Logger.getLogger(CarBookingDao.class.getName()).log(Level.SEVERE, null, e);
@@ -42,6 +46,7 @@ public static boolean bookCar(BookingData booking) {
     }
     return false;
 }
+
 
 
 

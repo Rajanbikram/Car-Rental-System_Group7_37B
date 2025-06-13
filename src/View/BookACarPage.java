@@ -521,6 +521,21 @@ public class BookACarPage extends javax.swing.JFrame {
         return Emailfield.getText();
     }
 
+    public String getPhoneNumber() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPhoneNumber'");
+    }
+
+    public String getPickupLocation() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPickupLocation'");
+    }
+
+    public String getDropLocation() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDropLocation'");
+    }
+
     
 }
 

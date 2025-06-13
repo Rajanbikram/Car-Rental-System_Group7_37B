@@ -5,11 +5,11 @@
 package car.rental.system;
 
 import Controller.BookCarController;
-import View.BookACarPage;
+import View.BookaCar;
 
 /**
  *
- * @author mamta sah
+ * @author menuka
  */
 public class CarRentalSystem {
 
@@ -17,11 +17,12 @@ public class CarRentalSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        BookACarPage view = new BookACarPage();
-        BookCarController controller = new BookCarController(view);
+        BookaCar viewFrame = new BookaCar();
+        BookCarController controller = new BookCarController(viewFrame);
         controller.open();
     }
-    }
+
+}
         
         
         // TODO code application logic here
