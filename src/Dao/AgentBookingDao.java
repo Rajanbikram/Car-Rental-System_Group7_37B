@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Dao;
-import Model.Booking;
+import Model.AgentBooking;
 import java.sql.*;
 import java.util.*;
 import Database.MySqlConnection;
@@ -11,13 +11,13 @@ import Database.MySqlConnection;
  *
  * @author rohin
  */
-public class BookingDao {
+public class AgentBookingDao {
 
     public static List<String[]> getBookingsForUser(String userName) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    public List<Booking> getAllBookings() {
-        List<Booking> list = new ArrayList<>();
+    public List<AgentBooking> getAllBookings() {
+        List<AgentBooking> list = new ArrayList<>();
         MySqlConnection db=new MySqlConnection();
         
         try (Connection conn=db.openConnection()) {
@@ -25,7 +25,7 @@ public class BookingDao {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                list.add(new Booking(
+                list.add(new AgentBooking(
                     rs.getInt("id"),
                     rs.getString("customer_name"),
                     rs.getString("car_id"),
