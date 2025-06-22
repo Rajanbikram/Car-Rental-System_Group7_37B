@@ -4,6 +4,8 @@
  */
 package Carrental_GroupG_37B;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author mamta sah
@@ -130,8 +132,7 @@ public class carView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bookcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookcActionPerformed
-      BookCar bookCarPopup = new BookCar();
-    bookCarPopup.setVisible(true);
+      
     }//GEN-LAST:event_bookcActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
@@ -149,4 +150,9 @@ public class carView extends javax.swing.JPanel {
     public javax.swing.JLabel price;
     public javax.swing.JLabel type;
     // End of variables declaration//GEN-END:variables
+
+    public void bookListener(ActionListener listener){
+        bookc.addActionListener(listener);
+    }
+  
 }

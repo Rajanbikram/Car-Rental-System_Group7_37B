@@ -4,6 +4,7 @@
  */
 package Carrental_GroupG_37B;
 
+import controller.BookingHistoryController;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
@@ -14,26 +15,28 @@ import javax.swing.JPanel;
  * @author mamta sah
  */
 public class main_menu extends javax.swing.JFrame {
-
+private static main_menu instance;
+public static main_menu getInstance() {
+        if (instance == null) {
+            instance = new main_menu();
+        }
+        return instance;
+    }
     /**
      * Creates new form main_menu
      */
     public main_menu() {
+        if (instance == null) {
+            instance = this;
         initComponents();
-        Agentmode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgentmodeActionPerformed(evt);
-            }
-        });
+      
+     
         
         listViewer.setLayout(new javax.swing.BoxLayout(listViewer, javax.swing.BoxLayout.Y_AXIS));
         listViewer.setPreferredSize(null);
     }
 
-    private void AgentmodeActionPerformed(java.awt.event.ActionEvent evt) {
-        Agent agentDashboard = new Agent();
-        agentDashboard.setVisible(true);
-        setVisible(false);
+   
     }
 
     /**
@@ -52,13 +55,12 @@ public class main_menu extends javax.swing.JFrame {
         Searchcar = new javax.swing.JButton();
         BookingHistory = new javax.swing.JButton();
         CompareCar = new javax.swing.JButton();
-        LocationPick = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         welcomeNote = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        Agentmode = new javax.swing.JButton();
+        Profile = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         listViewer = new javax.swing.JPanel();
 
@@ -82,6 +84,11 @@ public class main_menu extends javax.swing.JFrame {
         BookingHistory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BookingHistory.setForeground(new java.awt.Color(255, 255, 255));
         BookingHistory.setText("Booking History");
+        BookingHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BookingHistoryActionPerformed(evt);
+            }
+        });
 
         CompareCar.setBackground(new java.awt.Color(0, 0, 0));
         CompareCar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -90,16 +97,6 @@ public class main_menu extends javax.swing.JFrame {
         CompareCar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CompareCarActionPerformed(evt);
-            }
-        });
-
-        LocationPick.setBackground(new java.awt.Color(0, 0, 0));
-        LocationPick.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        LocationPick.setForeground(new java.awt.Color(255, 255, 255));
-        LocationPick.setText("Location Pick/Drop");
-        LocationPick.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LocationPickActionPerformed(evt);
             }
         });
 
@@ -117,8 +114,7 @@ public class main_menu extends javax.swing.JFrame {
                     .addComponent(CompareCar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Searchcar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LocationPick))
+                    .addComponent(BookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -132,9 +128,7 @@ public class main_menu extends javax.swing.JFrame {
                 .addComponent(BookingHistory)
                 .addGap(50, 50, 50)
                 .addComponent(CompareCar)
-                .addGap(44, 44, 44)
-                .addComponent(LocationPick)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(153, 204, 255));
@@ -150,8 +144,13 @@ public class main_menu extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("View Availability");
 
-        Agentmode.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Agentmode.setText("Agent Mode");
+        Profile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Profile.setText("Profile");
+        Profile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProfileActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -163,24 +162,30 @@ public class main_menu extends javax.swing.JFrame {
                 .addGap(65, 65, 65)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(welcomeNote, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(86, 86, 86)
-                        .addComponent(Agentmode, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Profile, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(Agentmode))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(welcomeNote)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(welcomeNote)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(Profile)
+                        .addGap(29, 29, 29)))
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        jScrollPane2.setBackground(new java.awt.Color(153, 204, 255));
+
+        listViewer.setBackground(new java.awt.Color(153, 204, 255));
 
         javax.swing.GroupLayout listViewerLayout = new javax.swing.GroupLayout(listViewer);
         listViewer.setLayout(listViewerLayout);
@@ -213,7 +218,7 @@ public class main_menu extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -243,9 +248,13 @@ public class main_menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CompareCarActionPerformed
 
-    private void LocationPickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocationPickActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LocationPickActionPerformed
+    private void BookingHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookingHistoryActionPerformed
+   
+    }//GEN-LAST:event_BookingHistoryActionPerformed
+
+    private void ProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfileActionPerformed
+        
+    }//GEN-LAST:event_ProfileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,10 +292,9 @@ public class main_menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Agentmode;
     private javax.swing.JButton BookingHistory;
     private javax.swing.JButton CompareCar;
-    private javax.swing.JButton LocationPick;
+    private javax.swing.JButton Profile;
     private javax.swing.JButton Searchcar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -304,7 +312,16 @@ public class main_menu extends javax.swing.JFrame {
     public javax.swing.JLabel getNote(){return welcomeNote;}
     
     public void addSearchListener(ActionListener listener) {
-    Searchcar.addActionListener(listener); // 
+        Searchcar.addActionListener(listener); // 
     }
-
+  
+    public void showHistory(ActionListener listener){
+        BookingHistory.addActionListener(listener);
+    }
+  public void showProfile(ActionListener listener) {
+        Profile.addActionListener(listener);
+}
+  public void addCompareCarListener(ActionListener listener) {
+        CompareCar.addActionListener(listener);
+    }
 }

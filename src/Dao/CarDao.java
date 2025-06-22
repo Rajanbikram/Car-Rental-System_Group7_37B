@@ -13,7 +13,7 @@ package Dao;
  */
 
 import model.Car;
-import database.MySqlConnection; // Updated package
+import database.MySqlConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,19 +30,22 @@ public class CarDao {
 
     // Add a new car to the database
     public boolean addCar(Car car) throws SQLException {
-        String query = "INSERT INTO cars (image_path, brand, model, type, price, available) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO cars (image_path, brand, model, type, price, available, seating_capacity, ac_availability, fuel_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection conn = null;
         PreparedStatement stmt = null;
         try {
-            conn = dbConnection.openConnection(); // Updated method name
+            conn = dbConnection.openConnection();
             stmt = conn.prepareStatement(query);
             stmt.setString(1, car.getImagePath());
             stmt.setString(2, car.getBrand());
             stmt.setString(3, car.getModel());
             stmt.setString(4, car.getType());
             stmt.setString(5, car.getPrice());
-            stmt.setBoolean(6, true);
-             int rowsAffected = stmt.executeUpdate();
+            stmt.setBoolean(6, car.isAvailable());
+            stmt.setInt(7, car.getSeatingCapacity());         // New field
+            stmt.setString(8, car.getAcAvailability());      // New field
+            stmt.setString(9, car.getFuelType());            // New field
+            int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 return true;
             }
@@ -68,7 +71,7 @@ public class CarDao {
         PreparedStatement stmt = null;
 
         try {
-            conn = dbConnection.openConnection(); // Updated method name
+            conn = dbConnection.openConnection();
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -77,10 +80,13 @@ public class CarDao {
                         rs.getString("brand"),
                         rs.getString("model"),
                         rs.getString("type"),
-                        rs.getString("price")
+                        rs.getString("price"),
+                        rs.getInt("seating_capacity"),         // New field
+                        rs.getString("ac_availability"),      // New field
+                        rs.getString("fuel_type")             // New field
                 );
                 car.setId(rs.getInt("id"));
-                car.setAvailable(rs.getBoolean("available")); // Optional if you want to update availability too
+                car.setAvailable(rs.getBoolean("available"));
                 cars.add(car);
             }
 
@@ -90,6 +96,53 @@ public class CarDao {
 
         return cars;
     }
-}
 
-  
+    // New method to get car by ID for compare functionality
+    public Car getCarById(int id) throws SQLException {
+        String sql = "SELECT * FROM cars WHERE id = ?";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Car car = null;
+
+        try {
+            conn = dbConnection.openConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                car = new Car(
+                    rs.getString("image_path"),
+                    rs.getString("brand"),
+                    rs.getString("model"),
+                    rs.getString("type"),
+                    rs.getString("price"),
+                    rs.getInt("seating_capacity"),
+                    rs.getString("ac_availability"),
+                    rs.getString("fuel_type")
+                );
+                car.setId(rs.getInt("id"));
+                car.setAvailable(rs.getBoolean("available"));
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error fetching car by ID: " + e.getMessage(), e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    System.err.println("Error closing result set: " + e.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    System.err.println("Error closing statement: " + e.getMessage());
+                }
+            }
+            if (conn != null) dbConnection.closeConnection(conn);
+        }
+        return car;
+    }
+}

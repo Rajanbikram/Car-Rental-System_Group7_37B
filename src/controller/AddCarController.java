@@ -21,7 +21,7 @@ public class AddCarController {
     private int id;
     private Addcar addView;
 
-    public AddCarController(Addcar addView,int id) {
+    public AddCarController(Addcar addView, int id) {
         this.addView = addView;
         this.id = id;
         System.out.println("controller called...");
@@ -32,59 +32,71 @@ public class AddCarController {
         this.addView.setVisible(true);
     }
     
-     public void close(){
+    public void close(){
         this.addView.setVisible(false);
     }
 
-    private  class addNewCar implements ActionListener {
+    private class addNewCar implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("adding...");
             try {
                 String brand = addView.getBrand();
-                String type = addView.getCarType ();
+                String type = addView.getCarType();
                 String model = addView.getModel();
                 String price = addView.getPrice();
-                String ImagePath = addView.getImagePath();
-                
+                String imagePath = addView.getImagePath();
+                int seatingCapacity = addView.getSeatingCap(); // New field
+                String acAvailability = addView.getAcAvailability(); // New field
+                String fuelType = addView.getFuelType(); // New field
+
                 if (brand.isEmpty()) {
                     JOptionPane.showMessageDialog(addView, "Brand cannot be empty");
                     return;
                 }
                 if (type.isEmpty()) {
-                    JOptionPane.showMessageDialog(addView, "type cannot be empty");
+                    JOptionPane.showMessageDialog(addView, "Type cannot be empty");
                     return;
                 }
                 if (model.isEmpty()) {
-                    JOptionPane.showMessageDialog(addView, "model cannot be empty");
+                    JOptionPane.showMessageDialog(addView, "Model cannot be empty");
                     return;
                 }
                 if (price.isEmpty()) {
-                    JOptionPane.showMessageDialog(addView, "price cannot be empty");
+                    JOptionPane.showMessageDialog(addView, "Price cannot be empty");
                     return;
                 }
-                
-                if (ImagePath.isEmpty()) {
+                if (imagePath.isEmpty()) {
                     JOptionPane.showMessageDialog(addView, "Image cannot be empty");
                     return;
                 }
-                
-                Car newCar = new Car(ImagePath,brand,model,type,price);
-                
-                if(carDao.addCar(newCar)){
+                if (seatingCapacity <= 0) { // Validate seating capacity
+                    JOptionPane.showMessageDialog(addView, "Seating Capacity must be greater than 0");
+                    return;
+                }
+                if (acAvailability == null || acAvailability.isEmpty()) {
+                    JOptionPane.showMessageDialog(addView, "AC Availability cannot be empty");
+                    return;
+                }
+                if (fuelType == null || fuelType.isEmpty()) {
+                    JOptionPane.showMessageDialog(addView, "Fuel Type cannot be empty");
+                    return;
+                }
+
+                Car newCar = new Car(imagePath, brand, model, type, price, seatingCapacity, acAvailability, fuelType);
+
+                if (carDao.addCar(newCar)) {
                     JOptionPane.showMessageDialog(addView, "Added successfully");
                     close();
                     return;
-                }else{
-                    JOptionPane.showMessageDialog(null,"failed to add car");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to add car");
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(AddCarController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-
 }
-
 

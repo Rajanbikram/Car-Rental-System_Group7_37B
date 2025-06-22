@@ -13,6 +13,7 @@ public class model {
     private String username;
     private String email;
     private String role;
+    
     private String password;
     
     /**

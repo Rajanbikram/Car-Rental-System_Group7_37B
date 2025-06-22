@@ -4,6 +4,9 @@
  */
 package Carrental_GroupG_37B;
 
+import controller.BookCarController;
+import java.awt.event.ActionListener;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,12 +14,14 @@ import javax.swing.JOptionPane;
  * @author mamta sah
  */
 public class BookCar extends javax.swing.JFrame {
-
+public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
     /**
      * Creates new form BookCar
      */
     public BookCar() {
         initComponents();
+        
+        
     }
 
     /**
@@ -366,16 +371,54 @@ public class BookCar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Cancel;
-    private javax.swing.JButton ConfirmBooking;
-    private com.toedter.calendar.JDateChooser DateFirst;
-    private com.toedter.calendar.JDateChooser DateSecond;
-    private javax.swing.JTextField Drop;
-    private javax.swing.JTextField Email;
-    private javax.swing.JTextField Name;
-    private javax.swing.JTextField PhoneNum;
-    private javax.swing.JTextField Pickup;
+    public javax.swing.JButton Cancel;
+    public javax.swing.JButton ConfirmBooking;
+    public com.toedter.calendar.JDateChooser DateFirst;
+    public com.toedter.calendar.JDateChooser DateSecond;
+    public javax.swing.JTextField Drop;
+    public javax.swing.JTextField Email;
+    public javax.swing.JTextField Name;
+    public javax.swing.JTextField PhoneNum;
+    public javax.swing.JTextField Pickup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+// Added getter methods
+    public String getName() {
+        return Name.getText();
+    }
+
+    public String getEmail() {
+        return Email.getText();
+    }
+
+    public String getPhoneNum() {
+        return PhoneNum.getText();
+    }
+
+    public Date getDateFirst() {
+        return DateFirst.getDate();
+    }
+
+    public Date getDateSecond() {
+        return DateSecond.getDate();
+    }
+
+    public String getPickup() {
+        return Pickup.getText();
+    }
+
+    public String getDrop() {
+        return Drop.getText();
+    }
+
+    // Added listener methods
+    public void addConfirmBookingListener(ActionListener listener) {
+        ConfirmBooking.addActionListener(listener);
+    }
+
+    public void addCancelListener(ActionListener listener) {
+        Cancel.addActionListener(listener);
+    }
 }
+

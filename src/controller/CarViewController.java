@@ -9,9 +9,11 @@ package controller;
  */
 
 
+import Carrental_GroupG_37B.BookCar;
 import Dao.CarDao;
 import java.awt.event.ActionEvent;
 import Carrental_GroupG_37B.carView;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Car;
@@ -29,6 +31,7 @@ public class CarViewController {
         this.carDao = new CarDao();
         this.car = car;
         this.id = id;
+        this.view.bookListener(new book());
         getSetValues();
         this.view.setVisible(true);
 
@@ -55,6 +58,19 @@ public class CarViewController {
         view.type.setText(car.getType());
         view.modelC.setText(car.getModel());
         view.price.setText(car.getPrice());
+        view.delete.setVisible(false); // DELETE button hidden
+    }
+
+    private class book implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            BookCar bc = new BookCar();
+            BookCarController c = new BookCarController(bc,car,id);
+            c.open();
+            
+        }
+
     }
 
 }

@@ -7,7 +7,6 @@ package model;
  * @author mamta sah
  */
 
-
 public class Car {
     private int id;          // Added for delete functionality
     private String imagePath;
@@ -16,14 +15,21 @@ public class Car {
     private String type;
     private String price;
     private boolean available = true;
+    private int seatingCapacity;    // New field
+    private String acAvailability; // New field
+    private String fuelType;       // New field
 
-    // Constructor
-    public Car(String imagePath, String brand, String model, String type, String price) {
+    // Updated Constructor with new fields
+    public Car(String imagePath, String brand, String model, String type, String price, 
+               int seatingCapacity, String acAvailability, String fuelType) {
         this.imagePath = imagePath;
         this.brand = brand;
         this.model = model;
         this.type = type;
         this.price = price;
+        this.seatingCapacity = seatingCapacity;
+        this.acAvailability = acAvailability;
+        this.fuelType = fuelType;
     }
 
     // Getters and Setters
@@ -83,12 +89,35 @@ public class Car {
         this.available = available;
     }
 
-    public String getModelc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    // New Getter and Setter for seatingCapacity
+    public int getSeatingCapacity() {
+        return seatingCapacity;
     }
-    
-    
+
+    public void setSeatingCapacity(int seatingCapacity) {
+        this.seatingCapacity = seatingCapacity;
+    }
+
+    // New Getter and Setter for acAvailability
+    public String getAcAvailability() {
+        return acAvailability;
+    }
+
+    public void setAcAvailability(String acAvailability) {
+        this.acAvailability = acAvailability;
+    }
+
+    // New Getter and Setter for fuelType
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType;
+    }
+
+    public String getModelc() {
+        throw new UnsupportedOperationException("Not supported yet."); // Remove if not needed
+    }
 }
-
-
 

@@ -37,20 +37,18 @@ public class Addcar extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         brand = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         model = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         type = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         price = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         Addbtn = new javax.swing.JButton();
         Browse = new javax.swing.JButton();
         imagepath = new javax.swing.JTextField();
         cancel = new javax.swing.JButton();
+        SeatingCap = new javax.swing.JTextField();
+        acAvailability = new javax.swing.JComboBox<>();
+        fuelType = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,48 +58,61 @@ public class Addcar extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Add Car:");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Brand:");
-
+        brand.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                brandFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                brandFocusLost(evt);
+            }
+        });
         brand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 brandActionPerformed(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Model:");
-
+        model.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                modelFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                modelFocusLost(evt);
+            }
+        });
         model.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modelActionPerformed(evt);
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Type:");
-
+        type.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                typeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                typeFocusLost(evt);
+            }
+        });
         type.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 typeActionPerformed(evt);
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Price:");
-
+        price.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                priceFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                priceFocusLost(evt);
+            }
+        });
         price.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 priceActionPerformed(evt);
             }
         });
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Image Path:");
 
         Addbtn.setBackground(new java.awt.Color(255, 0, 0));
         Addbtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -120,6 +131,14 @@ public class Addcar extends javax.swing.JFrame {
             }
         });
 
+        imagepath.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                imagepathFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                imagepathFocusLost(evt);
+            }
+        });
         imagepath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 imagepathActionPerformed(evt);
@@ -139,6 +158,29 @@ public class Addcar extends javax.swing.JFrame {
             }
         });
 
+        SeatingCap.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SeatingCapFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                SeatingCapFocusLost(evt);
+            }
+        });
+        SeatingCap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeatingCapActionPerformed(evt);
+            }
+        });
+
+        acAvailability.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "Non AC" }));
+
+        fuelType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Petrol ", "Diesel", "Electric" }));
+        fuelType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fuelTypeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -149,75 +191,62 @@ public class Addcar extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(Addbtn)
                 .addGap(14, 14, 14))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(132, 132, 132)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addContainerGap(48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(imagepath, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(brand, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(44, 44, 44))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(161, 161, 161)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(type, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                        .addComponent(model, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(SeatingCap, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(acAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fuelType, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(imagepath, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(brand, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(type)
+                                .addComponent(model)))))
+                .addGap(44, 44, 44))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(176, 176, 176)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(160, 160, 160)
+                        .addComponent(Browse)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(163, 163, 163)
-                .addComponent(Browse)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(brand, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(25, 25, 25)
                 .addComponent(model, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(25, 25, 25)
                 .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(4, 4, 4)
+                .addComponent(jLabel3)
+                .addGap(25, 25, 25)
                 .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(25, 25, 25)
+                .addComponent(SeatingCap, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(acAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(fuelType, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addComponent(imagepath, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Browse)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Addbtn)
                     .addComponent(cancel))
@@ -296,6 +325,98 @@ public class Addcar extends javax.swing.JFrame {
        this.setVisible(false);
     }//GEN-LAST:event_cancelMouseClicked
 
+    private void SeatingCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeatingCapActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SeatingCapActionPerformed
+
+    private void fuelTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fuelTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fuelTypeActionPerformed
+
+    private void brandFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_brandFocusGained
+        if (brand.getText().equals("Brand")) {
+            brand.setText("");
+            brand.setForeground(java.awt.Color.BLACK);
+        }
+    }//GEN-LAST:event_brandFocusGained
+
+    private void brandFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_brandFocusLost
+        if (brand.getText().isEmpty()) {
+            brand.setText("Brand");
+            brand.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_brandFocusLost
+
+    private void modelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_modelFocusGained
+        if (model.getText().equals("Model")) {
+            model.setText("");
+            model.setForeground(java.awt.Color.BLACK);
+        }
+    }//GEN-LAST:event_modelFocusGained
+
+    private void modelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_modelFocusLost
+        if (model.getText().isEmpty()) {
+            model.setText("Model");
+            model.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_modelFocusLost
+
+    private void typeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_typeFocusGained
+        if (type.getText().equals("Type")) {
+            type.setText("");
+            type.setForeground(java.awt.Color.BLACK);
+        }
+    }//GEN-LAST:event_typeFocusGained
+
+    private void typeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_typeFocusLost
+        if (type.getText().isEmpty()) {
+            type.setText("Type");
+            type.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_typeFocusLost
+
+    private void priceFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_priceFocusGained
+          if (price.getText().equals("Price")) {
+            price.setText("");
+            price.setForeground(java.awt.Color.BLACK);
+        }
+    }//GEN-LAST:event_priceFocusGained
+
+    private void priceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_priceFocusLost
+           if (price.getText().isEmpty()) {
+            price.setText("Price");
+            price.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_priceFocusLost
+
+    private void SeatingCapFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SeatingCapFocusGained
+        if (SeatingCap.getText().equals("Seating Capacity")) {
+            SeatingCap.setText("");
+            SeatingCap.setForeground(java.awt.Color.BLACK);
+        }
+    }//GEN-LAST:event_SeatingCapFocusGained
+
+    private void SeatingCapFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SeatingCapFocusLost
+        if (SeatingCap.getText().isEmpty()) {
+            SeatingCap.setText("Seating Capacity");
+            SeatingCap.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_SeatingCapFocusLost
+
+    private void imagepathFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_imagepathFocusGained
+        if (imagepath.getText().equals("Image Path")) {
+            imagepath.setText("");
+            imagepath.setForeground(java.awt.Color.BLACK);
+        }
+    }//GEN-LAST:event_imagepathFocusGained
+
+    private void imagepathFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_imagepathFocusLost
+        if (imagepath.getText().isEmpty()) {
+            imagepath.setText("Image Path");
+            imagepath.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_imagepathFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -304,50 +425,62 @@ public class Addcar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Addbtn;
     private javax.swing.JButton Browse;
-    private javax.swing.JTextField brand;
+    public javax.swing.JTextField SeatingCap;
+    public javax.swing.JComboBox<String> acAvailability;
+    public javax.swing.JTextField brand;
     private javax.swing.JButton cancel;
-    private javax.swing.JTextField imagepath;
+    public javax.swing.JComboBox<String> fuelType;
+    public javax.swing.JTextField imagepath;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField model;
-    private javax.swing.JTextField price;
-    private javax.swing.JTextField type;
+    public javax.swing.JTextField model;
+    public javax.swing.JTextField price;
+    public javax.swing.JTextField type;
     // End of variables declaration//GEN-END:variables
 
 
-    public void addBrowseListener(ActionListener listener) {
-        Browse.addActionListener(listener);
-    }
+   public void addBrowseListener(ActionListener listener) {
+    Browse.addActionListener(listener);
+}
 
-    public String getBrand() {
-        return brand.getText();
-    }
-    
-    public String getImagePath() {
-        return imagepath.getText();
-    }
-    
-    public String getModel() {
-        return model.getText();
-    }
-    
-    public String getPrice() {
-        return price.getText();
-    }
-    
-    public String getCarType() {
-        return type.getText();
-    }
+public String getBrand() {
+    return brand.getText();
+}
 
-    public void addAddBtnListener(ActionListener listener) {
-        Addbtn.addActionListener(listener);
+public String getImagePath() {
+    return imagepath.getText();
+}
+
+public String getModel() {
+    return model.getText();
+}
+
+public String getPrice() {
+    return price.getText();
+}
+
+public String getCarType() {
+    return type.getText();
+}
+
+public int getSeatingCap() {
+    try {
+        return Integer.parseInt(SeatingCap.getText()); // Assuming JTextField for seating
+    } catch (NumberFormatException e) {
+        return 0; // Default value if invalid
     }
 }
 
+public String getAcAvailability() {
+    return (String) acAvailability.getSelectedItem(); // Assuming JComboBox
+}
 
+public String getFuelType() {
+    return (String) fuelType.getSelectedItem(); // Assuming JComboBox
+}
+
+public void addAddBtnListener(ActionListener listener) {
+    Addbtn.addActionListener(listener);
+}
+}

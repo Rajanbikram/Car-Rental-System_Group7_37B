@@ -300,7 +300,7 @@ public class From_login1 extends javax.swing.JFrame {
     }//GEN-LAST:event_uNameFieldFocusGained
 
     private void uNameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_uNameFieldFocusLost
-       if(uNameField.getText().isEmpty()){
+        if (uNameField.getText().isEmpty()) {
             uNameField.setText("username");
             uNameField.setForeground(Color.GRAY);
         }
