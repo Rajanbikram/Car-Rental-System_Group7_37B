@@ -9,10 +9,9 @@ package controller;
  * @author mamta sah
  */
 
-
 import Carrental_GroupG_37B.comparecar;
 import Carrental_GroupG_37B.main_menu;
-import Carrental_GroupG_37B.Addcar; // Assuming Addcar class package
+import Carrental_GroupG_37B.Addcar;
 import Dao.CarDao;
 import java.awt.event.ActionEvent;
 import model.Car;
@@ -28,15 +27,15 @@ import javax.swing.table.DefaultTableModel;
 public class CompareCarController {
     private CarDao carDao = new CarDao();
     private comparecar compareView;
+    private int userId;
     ArrayList<Car> cars = null;
 
-    public CompareCarController(comparecar compareView) {
+    public CompareCarController(comparecar compareView, int userId) {
         this.compareView = compareView;
+        this.userId = userId;
         this.compareView.compareListener(new CompareCars());
         populateComboBoxes();
     }
-
-   
 
     public void open() {
         compareView.setVisible(true);
@@ -48,22 +47,17 @@ public class CompareCarController {
 
     private void populateComboBoxes() {
         try {
-            cars = carDao.getAllCars();
-           
-           compareView.car1Selector.removeAll();
-           compareView.car2Selector.removeAll();
+            cars = carDao.getAllCars(); // Show all cars for comparison
+            compareView.car1Selector.removeAll();
+            compareView.car2Selector.removeAll();
             for (Car car : cars) {
-                
                 compareView.car1Selector.addItem(car.getBrand() + " - " + car.getModel());
                 compareView.car2Selector.addItem(car.getBrand() + " - " + car.getModel());
             }
-            
         } catch (Exception e) {
             Logger.getLogger(CompareCarController.class.getName()).log(Level.SEVERE, "Error populating combo boxes", e);
         }
     }
-
-
 
     private void compareCars() {
         String car1Name = (String) compareView.car1Selector.getSelectedItem();
@@ -75,7 +69,7 @@ public class CompareCarController {
         }
 
         try {
-            cars = carDao.getAllCars();
+            cars = carDao.getAllCars(); // Fetch all cars for comparison
             Car car1 = null, car2 = null;
             for (Car car : cars) {
                 String carFullName = car.getBrand() + " - " + car.getModel();
@@ -106,14 +100,9 @@ public class CompareCarController {
     }
 
     private class CompareCars implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             compareCars();
         }
-
     }
-
-  
-
 }

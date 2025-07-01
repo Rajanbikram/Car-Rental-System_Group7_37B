@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import model.Booking;
 
 import model.Car;
 
@@ -56,22 +57,23 @@ public class ViewBookingController {
     }
 
     private void loadBookings() {
-        ArrayList<Car> cars;
-        try {
-            cars = bDao.getAllBookings();
-            view.Listview.removeAll();
-            for (Car car : cars) {
-                System.out.println("dsd");
-                BookingHistory carpanel = new BookingHistory();
-                new BookingHistoryController(carpanel, car);
-                view.Listview.add(carpanel);
-                view.Listview.add(Box.createVerticalStrut(10));
-            }
-            view.Listview.revalidate();
-            view.Listview.repaint();
-        } catch (SQLException ex) {
-            Logger.getLogger(ViewBookingController.class.getName()).log(Level.SEVERE, null, ex);
+    ArrayList<Booking> bookings;
+    try {
+        // Reintroducing userId as placeholder (replace with actual userId)
+        int userId = 1; // Placeholder, adjust as needed
+        bookings = bDao.getMyBookings(userId); // Use getMyBookings for Booking data
+        view.Listview.removeAll();
+        for (Booking booking : bookings) {
+            System.out.println("dsd");
+            BookingHistory carpanel = new BookingHistory();
+            new BookingHistoryController(carpanel, booking);
+            view.Listview.add(carpanel);
+            view.Listview.add(Box.createVerticalStrut(10));
         }
-
+        view.Listview.revalidate();
+        view.Listview.repaint();
+    } catch (SQLException ex) {
+        Logger.getLogger(ViewBookingController.class.getName()).log(Level.SEVERE, null, ex);
     }
+}
 }

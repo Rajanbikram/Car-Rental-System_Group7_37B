@@ -8,6 +8,7 @@ package Dao;
 
 
 
+
 import model.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -63,19 +64,22 @@ public class Dao {
 
     public int logIn(String username, String password) {
         Connection conn = mysql.openConnection();
-        String sql = "SELECT * FROM users where username = ? AND password = ?";
+        String sql = "SELECT id FROM users where username = ? AND password = ?"; // Simplified to select only id
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet result = pstmt.executeQuery();
             if (result.next()) {
-                return result.getInt("id");
+                int userId = result.getInt("id");
+                System.out.println("Logged in user ID: " + userId); // Debug log
+                return userId;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             mysql.closeConnection(conn);
         }
+        System.out.println("Login failed for username: " + username); // Debug log for failure
         return 0;
     }
 

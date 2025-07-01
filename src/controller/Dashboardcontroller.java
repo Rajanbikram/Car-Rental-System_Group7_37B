@@ -5,24 +5,24 @@
 package controller;
 
 
+import Carrental_GroupG_37B.BookingHistory;
+import Carrental_GroupG_37B.ProfileDashboard;
+import Carrental_GroupG_37B.carView;
+import Carrental_GroupG_37B.comparecar;
+import Carrental_GroupG_37B.main_menu;
 import Dao.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import Carrental_GroupG_37B.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Box;
+import model.Booking;
 import model.Car;
 
-/**
- *
- * @author mamta sah
- */
 public class Dashboardcontroller {
-     
     private final Dao Dao = new Dao();
     private final CarDao cDao = new CarDao();
     private final BookingDao bDao = new BookingDao();
@@ -33,7 +33,7 @@ public class Dashboardcontroller {
         this.userView = userView;
         this.id = id;
         this.userView.showHistory(new showHistory());
-        this.userView.showProfile(new showProfile()); // Added profile action listener
+        this.userView.showProfile(new showProfile());
         this.userView.addCompareCarListener(new CompareCarsPanel());
         allCars();
     }
@@ -47,43 +47,42 @@ public class Dashboardcontroller {
     }
     
     public void allCars() throws SQLException {
-        
-        ArrayList<Car> cars = cDao.getAllCars();
-        userView.listViewer.removeAll();
-        for(Car car : cars) {
-            carView carpanel = new carView();
-            new CarViewController(carpanel, car, id);
-            userView.listViewer.add(carpanel);
-            userView.listViewer.add(Box.createVerticalStrut(10));
+        ArrayList<Car> cars = cDao.getAllCars(); // Show all cars for search
+        if (userView.listViewer != null) {
+            userView.listViewer.removeAll();
+            for(Car car : cars) {
+                carView carpanel = new carView();
+                new CarViewController(carpanel, car, id);
+                userView.listViewer.add(carpanel);
+                userView.listViewer.add(Box.createVerticalStrut(10));
+            }
+            userView.listViewer.revalidate();
+            userView.listViewer.repaint(); 
         }
-        userView.listViewer.revalidate();
-        userView.listViewer.repaint(); 
     }
     
     public void history() throws SQLException {
-        ArrayList<Car> cars = bDao.getMyBookings(id);
-        userView.listViewer.removeAll();
-        for(Car car : cars) {
-            BookingHistory carpanel = new BookingHistory();
-            new BookingHistoryController(carpanel, car);
-            userView.listViewer.add(carpanel);
-            userView.listViewer.add(Box.createVerticalStrut(10));
+        ArrayList<Booking> bookings = bDao.getMyBookings(id);
+        if (userView.listViewer != null) {
+            userView.listViewer.removeAll();
+            for(Booking booking : bookings) {
+                BookingHistory carpanel = new BookingHistory();
+                new BookingHistoryController(carpanel, booking); 
+                userView.listViewer.add(carpanel);
+                userView.listViewer.add(Box.createVerticalStrut(10));
+            }
+            userView.listViewer.revalidate();
+            userView.listViewer.repaint(); 
         }
-        userView.listViewer.revalidate();
-        userView.listViewer.repaint(); 
     }
 
- 
-    private  class CompareCarsPanel implements ActionListener {
-
+    private class CompareCarsPanel implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             comparecar cmpCar = new comparecar();
-            CompareCarController c = new CompareCarController(cmpCar);
+            CompareCarController c = new CompareCarController(cmpCar, id);
             c.open();
         }
-
-       
     }
 
     private class showHistory implements ActionListener {
@@ -101,9 +100,9 @@ public class Dashboardcontroller {
         @Override
         public void actionPerformed(ActionEvent e) {
            ProfileDashboard profileDashboard = new ProfileDashboard();
-            ProfileDashboardController c = new ProfileDashboardController(profileDashboard,id);
+            ProfileDashboardController c = new ProfileDashboardController(profileDashboard, id);
             c.open();
-            userView.setVisible(false); // Hide main menu
+            userView.setVisible(false);
         }
     }
 }

@@ -15,20 +15,14 @@ import Carrental_GroupG_37B.Addcar;
 import Carrental_GroupG_37B.Agent;
 import Carrental_GroupG_37B.ViewBooking;
 import Carrental_GroupG_37B.ViewMyCar;
-import Carrental_GroupG_37B.AgentProfile; // Import AgentProfile
+import Carrental_GroupG_37B.AgentProfile;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author mamta sah
- */
-
 public class Agentcontroller {
-
     private Agent agentForm;
     private int agentId;
 
@@ -36,7 +30,7 @@ public class Agentcontroller {
         this.agentForm = agentForm;
         this.agentId = agentId;
         agentForm.addEditListener(new addCar());
-        initListeners(); // Initialize listeners
+        initListeners();
     }
 
     public void open() {
@@ -48,12 +42,11 @@ public class Agentcontroller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ViewMyCar viewMyCar = new ViewMyCar();
-                ViewMyCarsController controller = new ViewMyCarsController(viewMyCar);
+                ViewMyCarsController controller = new ViewMyCarsController(viewMyCar, agentId);
                 controller.open();
             }
         });
 
-        // Add listener for View button to open ViewBooking
         agentForm.addViewListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,7 +56,6 @@ public class Agentcontroller {
             }
         });
 
-        // Add listener for Profile button to open AgentProfile
         agentForm.addProfileListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,20 +67,14 @@ public class Agentcontroller {
     }
 
     public void openAddCarDialog() {
-        // Addcar addCarDialog = new Addcar(agentForm, true); // Modal dialog
-        // addCarDialog.setLocationRelativeTo(agentForm); // Center dialog
-        // addCarDialog.setVisible(true);
     }
 
     private class addCar implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             Addcar addView = new Addcar();
             AddCarController c = new AddCarController(addView, agentId);
             c.open();
         }
-
     }
-
 }

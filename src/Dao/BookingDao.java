@@ -9,133 +9,115 @@ package Dao;
  * @author mamta sah
  */
 
+
+
+
 import database.MySqlConnection;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.Booking;
 import model.Car;
-
 
 public class BookingDao {
     private final MySqlConnection mysql = new MySqlConnection();
 
-   
+    // Check if car is available for given dates
+    public boolean isCarAvailable(int carId, java.sql.Date startDate, java.sql.Date endDate) throws SQLException {
+        String query = "SELECT COUNT(*) FROM bookings WHERE car_id = ? AND status != 'cancelled' " +
+                      "AND (start_date <= ? AND end_date >= ?)";
+        try (Connection conn = mysql.openConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, carId);
+            stmt.setDate(2, endDate);
+            stmt.setDate(3, startDate);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next() && rs.getInt(1) == 0;
+        }
+    }
 
-    public boolean addBooking(int userId, int carId, String startDate, String endDate, String pickup, String drop) throws SQLException {
-        String query = "INSERT INTO bookings (user_id, car_id, start_date, end_date, pickup_location, drop_location, status, created_at) VALUES (?, ?, ?, ?, ?, ?, 'book', NOW())";
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        try {
-            conn = mysql.openConnection();
-            stmt = conn.prepareStatement(query);
+    // Add a new booking with double booking check
+    public boolean addBooking(Booking booking) throws SQLException {
+        String query = "INSERT INTO bookings (user_id, car_id, start_date, end_date, pickup_location, drop_location, status, created_at) " +
+                      "VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
+        try (Connection conn = mysql.openConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, booking.getUserId());
+            stmt.setInt(2, booking.getCarId());
+            stmt.setDate(3, (Date) booking.getStartDate());
+            stmt.setDate(4, (Date) booking.getEndDate());
+            stmt.setString(5, booking.getPickupLocation());
+            stmt.setString(6, booking.getDropLocation());
+            stmt.setString(7, booking.getStatus());
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
+    // Get user-specific bookings with car details
+    public ArrayList<Booking> getMyBookings(int userId) throws SQLException {
+        String query = "SELECT b.*, c.brand, c.model, c.type, c.price, c.image_path " +
+                      "FROM bookings b INNER JOIN cars c ON b.car_id = c.id WHERE b.user_id = ?";
+        ArrayList<Booking> bookings = new ArrayList<>();
+        try (Connection conn = mysql.openConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, userId);
-            stmt.setInt(2, carId);
-            stmt.setString(3, startDate);
-            stmt.setString(4, endDate);
-            stmt.setString(5, pickup);
-            stmt.setString(6, drop);
-            int rows = stmt.executeUpdate();
-            return rows > 0;
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            if (stmt != null) stmt.close();
-            if (conn != null) mysql.closeConnection(conn);
-        }
-    }
-
-    public ArrayList<Car> getMyBookings(int userId) throws SQLException {
-        String query = "SELECT c.brand, c.model, c.type, c.price, c.image_path "
-                + "FROM cars c "
-                + "INNER JOIN bookings b ON c.id = b.car_id "
-                + "WHERE b.user_id = ? ";
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        ArrayList<Car> cars = new ArrayList<>();
-
-        try {
-            conn = mysql.openConnection();
-            stmt = conn.prepareStatement(query);
-            stmt.setInt(1, userId);
-            rs = stmt.executeQuery();
-
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Car car = new Car(
-                        rs.getString("image_path"),
-                        rs.getString("brand"),
-                        rs.getString("model"),
-                        rs.getString("type"),
-                        rs.getString("price"),
-                        0, // seatingCapacity (default 0, adjust if needed)
-                        "N/A", // acAvailability (default, adjust if needed)
-                        "N/A" // fuelType (default, adjust if needed)
-                );
-                cars.add(car);
-            }
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            if (rs != null) try {
-                rs.close();
-            } catch (SQLException e) {
-                /* ignore */ }
-            if (stmt != null) {
-                stmt.close();
-            }
-            if (conn != null) {
-                mysql.closeConnection(conn);
+                Booking booking = new Booking();
+                booking.setId(rs.getInt("id"));
+                booking.setUserId(rs.getInt("user_id"));
+                booking.setCarId(rs.getInt("car_id"));
+                booking.setStartDate(rs.getDate("start_date"));
+                booking.setEndDate(rs.getDate("end_date"));
+                booking.setPickupLocation(rs.getString("pickup_location"));
+                booking.setDropLocation(rs.getString("drop_location"));
+                booking.setStatus(rs.getString("status"));
+                booking.setCarDetails(new Car(
+                    rs.getString("image_path"),
+                    rs.getString("brand"),
+                    rs.getString("model"),
+                    rs.getString("type"),
+                    rs.getString("price"),
+                    0, "N/A", "N/A"
+                ));
+                bookings.add(booking);
             }
         }
-
-        return cars; // Returns empty list if no cars found
+        return bookings;
     }
 
-        public ArrayList<Car> getAllBookings() throws SQLException {
-        String query = "SELECT c.brand, c.model, c.type, c.price, c.image_path "
-                + "FROM cars c "
-                + "INNER JOIN bookings b ON c.id = b.car_id ";
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+    // Get all bookings (unchanged)
+    public ArrayList<Car> getAllBookings() throws SQLException {
+        String query = "SELECT c.brand, c.model, c.type, c.price, c.image_path " +
+                      "FROM cars c INNER JOIN bookings b ON c.id = b.car_id";
         ArrayList<Car> cars = new ArrayList<>();
-
-        try {
-            conn = mysql.openConnection();
-            stmt = conn.prepareStatement(query);
-            rs = stmt.executeQuery();
-
+        try (Connection conn = mysql.openConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                Car car = new Car(
-                        rs.getString("image_path"),
-                        rs.getString("brand"),
-                        rs.getString("model"),
-                        rs.getString("type"),
-                        rs.getString("price"),
-                        0, // seatingCapacity (default 0, adjust if needed)
-                        "N/A", // acAvailability (default, adjust if needed)
-                        "N/A" // fuelType (default, adjust if needed)
-                );
-                cars.add(car);
-            }
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            if (rs != null) try {
-                rs.close();
-            } catch (SQLException e) {
-                /* ignore */ }
-            if (stmt != null) {
-                stmt.close();
-            }
-            if (conn != null) {
-                mysql.closeConnection(conn);
+                cars.add(new Car(
+                    rs.getString("image_path"),
+                    rs.getString("brand"),
+                    rs.getString("model"),
+                    rs.getString("type"),
+                    rs.getString("price"),
+                    0, "N/A", "N/A"
+                ));
             }
         }
-
-        return cars; // Returns empty list if no cars found
+        return cars;
     }
 
+    // Delete a booking by ID
+    public boolean deleteBooking(int bookingId) throws SQLException {
+        String query = "DELETE FROM bookings WHERE id = ?";
+        try (Connection conn = mysql.openConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, bookingId);
+            return stmt.executeUpdate() > 0;
+        }
+    }
 }

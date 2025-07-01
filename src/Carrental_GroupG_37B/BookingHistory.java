@@ -27,9 +27,9 @@ public class BookingHistory extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     public void clearBookings() {
         NCar.setText("");
-        type.setText("");
-        modelC.setText("");
-        price.setText("");
+        startDate.setText("");
+        pickdrop.setText("");
+        status.setText("");
         carImage.setIcon(null);
         // Clear any other components if needed
     }
@@ -42,61 +42,85 @@ public class BookingHistory extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         NCar = new javax.swing.JLabel();
-        modelC = new javax.swing.JLabel();
-        price = new javax.swing.JLabel();
-        type = new javax.swing.JLabel();
+        pickdrop = new javax.swing.JLabel();
+        status = new javax.swing.JLabel();
+        startDate = new javax.swing.JLabel();
         carImage = new javax.swing.JLabel();
+        Delete = new javax.swing.JButton();
+        fullname = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(102, 255, 153));
-        setPreferredSize(new java.awt.Dimension(535, 140));
+        setPreferredSize(new java.awt.Dimension(525, 185));
+        setVerifyInputWhenFocusTarget(false);
 
         jPanel2.setBackground(new java.awt.Color(153, 255, 153));
-        jPanel2.setPreferredSize(new java.awt.Dimension(535, 140));
+        jPanel2.setPreferredSize(new java.awt.Dimension(520, 180));
 
         NCar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         NCar.setText("Toyota");
 
-        modelC.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        modelC.setText("SUV");
+        pickdrop.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        pickdrop.setText("SUV");
 
-        price.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        price.setText("Price");
+        status.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        status.setText("Price");
 
-        type.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        type.setText("Toyota Fortuner GR-S");
+        startDate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        startDate.setText("Toyota Fortuner GR-S");
 
         carImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Carrental_GroupG_37B/WhatsApp Image 2025-05-29 at 21.24.13_8b689230.jpg"))); // NOI18N
+
+        Delete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Delete.setText("Delete");
+        Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteActionPerformed(evt);
+            }
+        });
+
+        fullname.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        fullname.setText("Full Name");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(carImage, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addGap(15, 15, 15)
+                .addComponent(carImage, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(type, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-                    .addComponent(NCar, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(modelC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(price, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                    .addComponent(fullname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(startDate, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                    .addComponent(NCar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pickdrop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(status, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(Delete)
+                .addGap(5, 5, 5))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(carImage, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(NCar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(type)
-                        .addGap(10, 10, 10)
-                        .addComponent(modelC)
-                        .addGap(10, 10, 10)
-                        .addComponent(price)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(NCar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
+                                .addComponent(startDate)
+                                .addGap(5, 5, 5)
+                                .addComponent(pickdrop)
+                                .addGap(5, 5, 5)
+                                .addComponent(status)
+                                .addGap(12, 12, 12)
+                                .addComponent(fullname))
+                            .addComponent(carImage, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -104,25 +128,33 @@ public class BookingHistory extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DeleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JButton Delete;
     public javax.swing.JLabel NCar;
     public javax.swing.JLabel carImage;
+    public javax.swing.JLabel fullname;
     private javax.swing.JPanel jPanel2;
-    public javax.swing.JLabel modelC;
-    public javax.swing.JLabel price;
-    public javax.swing.JLabel type;
+    public javax.swing.JLabel pickdrop;
+    public javax.swing.JLabel startDate;
+    public javax.swing.JLabel status;
     // End of variables declaration//GEN-END:variables
 
 }

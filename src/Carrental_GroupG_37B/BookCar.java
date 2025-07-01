@@ -143,6 +143,11 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
         Cancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Cancel.setForeground(new java.awt.Color(255, 51, 51));
         Cancel.setText("Cancel");
+        Cancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CancelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -334,6 +339,10 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
             Drop.setForeground(java.awt.Color.GRAY);
         }
     }//GEN-LAST:event_DropFocusLost
+
+    private void CancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelMouseClicked
+         this.setVisible(false);
+    }//GEN-LAST:event_CancelMouseClicked
 
     /**
      * @param args the command line arguments

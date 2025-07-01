@@ -5,6 +5,7 @@ package controller;
 
 
 
+
 import Carrental_GroupG_37B.ViewMyCar;
 import Dao.CarDao;
 import model.Car;
@@ -21,9 +22,11 @@ import javax.swing.JButton;
 public class ViewMyCarsController {
     private final CarDao carDao = new CarDao();
     private final ViewMyCar view;
+    private final int agentId;
 
-    public ViewMyCarsController(ViewMyCar view) {
+    public ViewMyCarsController(ViewMyCar view, int agentId) {
         this.view = view;
+        this.agentId = agentId;
         initController();
     }
 
@@ -33,9 +36,9 @@ public class ViewMyCarsController {
     }
 
     private void loadCarData() {
-        ArrayList<Car> cars = carDao.getAllCars();
-        view.listview.removeAll(); // Clear existing cards
-        view.listview.setLayout(new GridLayout(0, 1, 10, 10)); // Vertical layout with gaps
+        ArrayList<Car> cars = carDao.getAllCars(agentId);
+        view.listview.removeAll();
+        view.listview.setLayout(new GridLayout(0, 1, 10, 10));
         for (Car car : cars) {
             JPanel card = createCarCard(car);
             view.listview.add(card);
@@ -48,7 +51,6 @@ public class ViewMyCarsController {
         JPanel card = new JPanel(new BorderLayout(10, 10));
         card.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(135, 206, 235)));
 
-        // Image
         JLabel imageLabel = new JLabel();
         if (car.getImagePath() != null && !car.getImagePath().isEmpty()) {
             ImageIcon imageIcon = new ImageIcon(car.getImagePath());
@@ -56,25 +58,18 @@ public class ViewMyCarsController {
         }
         card.add(imageLabel, BorderLayout.WEST);
 
-        // Details Panel
-        JPanel detailsPanel = new JPanel(new GridLayout(5, 1)); // Increased to 5 rows for booked status
+        JPanel detailsPanel = new JPanel(new GridLayout(5, 1));
         detailsPanel.add(new JLabel("Brand: " + car.getBrand()));
         detailsPanel.add(new JLabel("Model: " + car.getModel()));
         detailsPanel.add(new JLabel("Type: " + car.getType()));
         detailsPanel.add(new JLabel("Price: " + car.getPrice()));
-        if (!car.isAvailable()) {
-            detailsPanel.add(new JLabel("Status: Booked")); // Show booked status if not available
-        }
+        if (!car.isAvailable()) detailsPanel.add(new JLabel("Status: Booked"));
         card.add(detailsPanel, BorderLayout.CENTER);
 
-        // Buttons Panel
         JPanel buttonsPanel = new JPanel();
         JButton bookButton = new JButton("Book car");
         JButton deleteButton = new JButton("DELETE");
-
-        // Set visibility of "Book car" button to off
-        bookButton.setVisible(false); // Button visibility turned off
-
+        bookButton.setVisible(false);
         buttonsPanel.add(bookButton);
         buttonsPanel.add(deleteButton);
         card.add(buttonsPanel, BorderLayout.EAST);
@@ -86,9 +81,8 @@ public class ViewMyCarsController {
         view.setVisible(true);
     }
 
-    // New method to add booked car from Booking History
     public void addBookedCar(String imagePath, String brand, String model, String type, String price, boolean isAvailable) {
-        Car car = new Car(imagePath, brand, model, type, price, 0, null, null); // Adjust constructor as per Car class
+        Car car = new Car(imagePath, brand, model, type, price, 0, null, null);
         car.setAvailable(isAvailable);
         JPanel card = createCarCard(car);
         view.listview.add(card);

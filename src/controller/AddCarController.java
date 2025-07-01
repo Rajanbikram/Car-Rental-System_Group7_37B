@@ -5,7 +5,6 @@
 package controller;
 
 
-
 import Dao.CarDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,7 +36,6 @@ public class AddCarController {
     }
 
     private class addNewCar implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("adding...");
@@ -47,49 +45,23 @@ public class AddCarController {
                 String model = addView.getModel();
                 String price = addView.getPrice();
                 String imagePath = addView.getImagePath();
-                int seatingCapacity = addView.getSeatingCap(); // New field
-                String acAvailability = addView.getAcAvailability(); // New field
-                String fuelType = addView.getFuelType(); // New field
+                int seatingCapacity = addView.getSeatingCap();
+                String acAvailability = addView.getAcAvailability();
+                String fuelType = addView.getFuelType();
 
-                if (brand.isEmpty()) {
-                    JOptionPane.showMessageDialog(addView, "Brand cannot be empty");
+                if (brand.isEmpty() || type.isEmpty() || model.isEmpty() || price.isEmpty() || imagePath.isEmpty() || acAvailability.isEmpty() || fuelType.isEmpty()) {
+                    JOptionPane.showMessageDialog(addView, "All fields are required");
                     return;
                 }
-                if (type.isEmpty()) {
-                    JOptionPane.showMessageDialog(addView, "Type cannot be empty");
-                    return;
-                }
-                if (model.isEmpty()) {
-                    JOptionPane.showMessageDialog(addView, "Model cannot be empty");
-                    return;
-                }
-                if (price.isEmpty()) {
-                    JOptionPane.showMessageDialog(addView, "Price cannot be empty");
-                    return;
-                }
-                if (imagePath.isEmpty()) {
-                    JOptionPane.showMessageDialog(addView, "Image cannot be empty");
-                    return;
-                }
-                if (seatingCapacity <= 0) { // Validate seating capacity
+                if (seatingCapacity <= 0) {
                     JOptionPane.showMessageDialog(addView, "Seating Capacity must be greater than 0");
-                    return;
-                }
-                if (acAvailability == null || acAvailability.isEmpty()) {
-                    JOptionPane.showMessageDialog(addView, "AC Availability cannot be empty");
-                    return;
-                }
-                if (fuelType == null || fuelType.isEmpty()) {
-                    JOptionPane.showMessageDialog(addView, "Fuel Type cannot be empty");
                     return;
                 }
 
                 Car newCar = new Car(imagePath, brand, model, type, price, seatingCapacity, acAvailability, fuelType);
-
-                if (carDao.addCar(newCar)) {
+                if (carDao.addCar(newCar, id)) {
                     JOptionPane.showMessageDialog(addView, "Added successfully");
                     close();
-                    return;
                 } else {
                     JOptionPane.showMessageDialog(null, "Failed to add car");
                 }
@@ -99,4 +71,3 @@ public class AddCarController {
         }
     }
 }
-

@@ -129,13 +129,17 @@ public class From_login1 extends javax.swing.JFrame {
             }
         });
 
-        passwordField.setText("jPasswordField1");
         passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 passwordFieldFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 passwordFieldFocusLost(evt);
+            }
+        });
+        passwordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordFieldActionPerformed(evt);
             }
         });
 
@@ -307,27 +311,27 @@ public class From_login1 extends javax.swing.JFrame {
     }//GEN-LAST:event_uNameFieldFocusLost
 
     private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
-  // clear text if text = 'password'
-String password = String.valueOf(passwordField.getPassword()); // get password
-if (password.trim().toLowerCase().equals("password")) { // get password
-    passwordField.setText("");
-    passwordField.setForeground(Color.black);
-}
-        
+// Clear text if password is "password" on focus lost, preserving echo character
+
+    String password = String.valueOf(passwordField.getPassword()); // Get password from the field
+    if (password.trim().toLowerCase().equals("password")) { // Check if password is "password" (case-insensitive)
+        passwordField.setText(""); // Clear the field
+        passwordField.setEchoChar('•'); // Reapply the default echo character
+        passwordField.setForeground(Color.BLACK); // Reset text color to black
+    }
+
 
     }//GEN-LAST:event_passwordFieldFocusGained
 
     private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
-      // set text to password if textfield is empty or = password
-    String password = String.valueOf(passwordField.getPassword()); // get password
-    if (password.trim().toLowerCase().equals("password") || 
-        password.trim().toLowerCase().equals("")) 
-    { 
-        passwordField.setText("password"); 
-        passwordField.setForeground(new Color(153, 153, 153)); 
-    } 
+// Set text to "password" if empty or "password" on focus lost, preserving echo character
 
-        
+    String password = String.valueOf(passwordField.getPassword()); // Get password from the field
+    if (password.trim().toLowerCase().equals("password") || password.trim().equals("")) { // Check if empty or "password" (case-insensitive for "password")
+        passwordField.setText("password"); // Set default text
+        passwordField.setEchoChar('•'); // Reapply the default echo character
+        passwordField.setForeground(new Color(153, 153, 153)); // Set grayish color
+    }
     }//GEN-LAST:event_passwordFieldFocusLost
 
     private void jLabelRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelRegisterMouseClicked
@@ -345,6 +349,10 @@ if (password.trim().toLowerCase().equals("password")) { // get password
       
     
     }//GEN-LAST:event_lgnBtnMouseClicked
+
+    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordFieldActionPerformed
 
     /**
      * @param args the command line arguments

@@ -9,29 +9,29 @@ package controller;
  * @author mamta sah
  */
 
+
+
+
 import Carrental_GroupG_37B.BookCar;
 import Carrental_GroupG_37B.BookingHistory;
-import Carrental_GroupG_37B.carView;
 import Carrental_GroupG_37B.main_menu;
 import Dao.BookingDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import model.Booking;
 import model.Car;
 
 public class BookCarController {
-
     private final BookCar view;
     private final BookingDao bookingDao;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private final int userId; // Declare userId
+    private final int userId;
     private final Car car;
 
     public BookCarController(BookCar view, Car car, int userId) {
@@ -40,36 +40,27 @@ public class BookCarController {
         this.car = car;
         this.userId = userId;
         initListeners();
-        this.view.setVisible(true);
-
-    }
-    
-    public void open(){
         view.setVisible(true);
     }
-    
-    public void close(){
-        view.setVisible(false);
+
+     public void open() {
+        this.view.setVisible(true);
     }
 
- 
+    // Added close method
+    public void close() {
+        this.view.setVisible(false);
+    }
+
     private void initListeners() {
-        view.ConfirmBooking.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    bookCar();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BookCarController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        view.ConfirmBooking.addActionListener(e -> {
+            try {
+                bookCar();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(view, "Booking error!");
             }
         });
-        view.Cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                view.dispose();
-            }
-        });
+        view.Cancel.addActionListener(e -> view.dispose());
     }
 
     private void bookCar() throws SQLException {
@@ -82,64 +73,63 @@ public class BookCarController {
         String drop = view.Drop.getText().trim();
 
         if (name.isEmpty() || email.isEmpty() || phoneNum.isEmpty() || startDate == null || endDate == null || pickup.isEmpty() || drop.isEmpty()) {
-            JOptionPane.showMessageDialog(view, "All fields are required!");
+            JOptionPane.showMessageDialog(view, "All fields required!");
             return;
         }
 
-        String startDateStr = dateFormat.format(startDate);
-        String endDateStr = dateFormat.format(endDate);
+        java.sql.Date sqlStartDate = new java.sql.Date(startDate.getTime());
+        java.sql.Date sqlEndDate = new java.sql.Date(endDate.getTime());
         String currentDateStr = dateFormat.format(new Date());
 
-        if (endDate.before(startDate)) {
-            JOptionPane.showMessageDialog(view, "End date must be after start date!");
+        if (endDate.before(startDate) || sqlStartDate.toString().compareTo(currentDateStr) < 0) {
+            JOptionPane.showMessageDialog(view, "Invalid dates!");
             return;
         }
 
-        if (startDateStr.compareTo(currentDateStr) < 0 || endDateStr.compareTo(currentDateStr) < 0) {
-            JOptionPane.showMessageDialog(view, "Dates must be in the future!");
+        if (!bookingDao.isCarAvailable(car.getId(), sqlStartDate, sqlEndDate)) {
+            JOptionPane.showMessageDialog(view, "Car already booked!");
             return;
         }
 
-        // Assuming user_id and car_id need to be fetched or hardcoded for now
-        if (bookingDao.addBooking(userId, car.getId(), startDateStr, endDateStr, pickup, drop)) {
-            JOptionPane.showMessageDialog(view, "Booking confirmed successfully!");
+        Booking booking = new Booking();
+        booking.setUserId(userId);
+        booking.setCarId(car.getId());
+        booking.setStartDate(sqlStartDate);
+        booking.setEndDate(sqlEndDate);
+        booking.setPickupLocation(pickup);
+        booking.setDropLocation(drop);
+        booking.setStatus("booked");
+
+        if (bookingDao.addBooking(booking)) {
+            JOptionPane.showMessageDialog(view, "Booking confirmed!");
             view.dispose();
 
-            // Get carView details
-            carView carViewInstance = new carView(); // Replace with actual carView instance if needed
-            String carBrand = carViewInstance.NCar.getText();
-            String carType = carViewInstance.type.getText();
-            String carModel = carViewInstance.modelC.getText();
-            String carPrice = carViewInstance.price.getText();
-            ImageIcon carImage = (ImageIcon) carViewInstance.carImage.getIcon();
-
-            // Use BookingHistory with carView design
-            BookingHistory historyPanel = new BookingHistory();
-            historyPanel.clearBookings();
-            JPanel bookingItem = new JPanel();
-            bookingItem.setLayout(new java.awt.GridLayout(1, 0));
-            bookingItem.setPreferredSize(new java.awt.Dimension(535, 140));
-            BookingHistory bookedPanel = new BookingHistory();
-            bookedPanel.NCar.setText(carBrand);
-            bookedPanel.type.setText(carType + " (Booked: " + startDateStr + " to " + endDateStr + ")");
-            bookedPanel.modelC.setText(carModel + " - " + pickup + " to " + drop);
-            bookedPanel.price.setText(carPrice);
-            if (carImage != null) {
-                bookedPanel.carImage.setIcon(carImage);
+            BookingHistory history = new BookingHistory();
+            if (history.NCar == null) history.NCar = new JLabel();
+            if (history.startDate == null) history.startDate = new JLabel();
+            if (history.pickdrop == null) history.pickdrop = new JLabel();
+            if (history.status == null) history.status = new JLabel();
+            if (history.carImage == null) history.carImage = new JLabel();
+            history.NCar.setText(car.getBrand());
+            history.startDate.setText(car.getType() + " (Booked: " + dateFormat.format(startDate) + " to " + dateFormat.format(endDate) + ")");
+            history.pickdrop.setText(car.getModel() + " - " + pickup + " to " + drop);
+            history.status.setText(car.getPrice());
+            if (car.getImagePath() != null) {
+                history.carImage.setIcon(new javax.swing.ImageIcon(car.getImagePath()));
             }
-            bookingItem.add(bookedPanel);
-            historyPanel.addBookingPanel(bookingItem);
+            JPanel bookingItem = new JPanel(new java.awt.GridLayout(1, 0));
+            bookingItem.setPreferredSize(new java.awt.Dimension(535, 140));
+            bookingItem.add(history);
+            history.clearBookings();
+            history.addBookingPanel(bookingItem);
 
-            // Update main_menu listViewer
-            main_menu mainMenu = main_menu.getInstance(); // Fixed with getInstance
+            main_menu mainMenu = main_menu.getInstance();
             mainMenu.listViewer.removeAll();
-            mainMenu.listViewer.add(historyPanel);
+            mainMenu.listViewer.add(history);
             mainMenu.listViewer.revalidate();
             mainMenu.listViewer.repaint();
-
-            
         } else {
-            JOptionPane.showMessageDialog(view, "Failed to confirm booking!");
+            JOptionPane.showMessageDialog(view, "Booking failed!");
         }
     }
 }
