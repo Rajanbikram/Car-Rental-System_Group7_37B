@@ -14,7 +14,6 @@ import Carrental_GroupG_37B.BookingHistory;
 import Dao.BookingDao;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -32,6 +31,7 @@ public class BookingHistoryController {
         this.booking = booking;
         loadBookings();
         this.view.setVisible(true);
+        setDeleteButtonVisible(true); // Show DELETE button by default in BookingHistory
     }
 
     public void loadBookings() {
@@ -67,11 +67,7 @@ public class BookingHistoryController {
         if (view.status != null && booking.getStatus() != null) {
             view.status.setText(booking.getStatus());
         }
-        if (view.fullname != null && booking.getFullname() != null) {
-            String[] nameParts = booking.getFullname().split(" ");
-            String bookerName = nameParts.length > 0 ? nameParts[0] : booking.getFullname(); // Take first name
-            view.fullname.setText(bookerName);
-        }
+        view.fullname.setText(booking.getFullname());
 
         // Add Delete button action
         if (view.Delete != null) {
@@ -82,6 +78,7 @@ public class BookingHistoryController {
                         if (bDao.deleteBooking(booking.getId())) {
                             JOptionPane.showMessageDialog(view, "Booking deleted successfully.");
                             // Panel removal is now the responsibility of the calling controller
+                            view.setVisible(false);
                         }
                     } catch (SQLException ex) {
                         Logger.getLogger(BookingHistoryController.class.getName()).log(Level.SEVERE, null, ex);
@@ -90,4 +87,13 @@ public class BookingHistoryController {
             });
         }
     }
+
+    public void setDeleteButtonVisible(boolean visible) {
+        if (view.Delete != null) {
+            view.Delete.setVisible(visible); // Control DELETE button visibility
+        }
+    }
 }
+
+
+

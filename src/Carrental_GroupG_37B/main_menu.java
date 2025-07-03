@@ -15,28 +15,19 @@ import javax.swing.JPanel;
  * @author mamta sah
  */
 public class main_menu extends javax.swing.JFrame {
-private static main_menu instance;
-public static main_menu getInstance() {
-        if (instance == null) {
-            instance = new main_menu();
-        }
-        return instance;
-    }
+
+    
+
     /**
      * Creates new form main_menu
      */
     public main_menu() {
-        if (instance == null) {
-            instance = this;
+
         initComponents();
-      
-     
-        
+
         listViewer.setLayout(new javax.swing.BoxLayout(listViewer, javax.swing.BoxLayout.Y_AXIS));
         listViewer.setPreferredSize(null);
-    }
 
-   
     }
 
     /**
@@ -53,7 +44,7 @@ public static main_menu getInstance() {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         Searchcar = new javax.swing.JButton();
-        BookingHistory = new javax.swing.JButton();
+        bHBtn = new javax.swing.JButton();
         CompareCar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -80,13 +71,14 @@ public static main_menu getInstance() {
             }
         });
 
-        BookingHistory.setBackground(new java.awt.Color(0, 0, 0));
-        BookingHistory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        BookingHistory.setForeground(new java.awt.Color(255, 255, 255));
-        BookingHistory.setText("Booking History");
-        BookingHistory.addActionListener(new java.awt.event.ActionListener() {
+        bHBtn.setBackground(new java.awt.Color(0, 0, 0));
+        bHBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bHBtn.setForeground(new java.awt.Color(255, 255, 255));
+        bHBtn.setText("Booking History");
+        bHBtn.setDefaultCapable(false);
+        bHBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BookingHistoryActionPerformed(evt);
+                bHBtnActionPerformed(evt);
             }
         });
 
@@ -114,7 +106,7 @@ public static main_menu getInstance() {
                     .addComponent(CompareCar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Searchcar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bHBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -125,7 +117,7 @@ public static main_menu getInstance() {
                 .addGap(51, 51, 51)
                 .addComponent(Searchcar)
                 .addGap(56, 56, 56)
-                .addComponent(BookingHistory)
+                .addComponent(bHBtn)
                 .addGap(50, 50, 50)
                 .addComponent(CompareCar)
                 .addContainerGap(225, Short.MAX_VALUE))
@@ -248,9 +240,9 @@ public static main_menu getInstance() {
         // TODO add your handling code here:
     }//GEN-LAST:event_CompareCarActionPerformed
 
-    private void BookingHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookingHistoryActionPerformed
+    private void bHBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHBtnActionPerformed
    
-    }//GEN-LAST:event_BookingHistoryActionPerformed
+    }//GEN-LAST:event_bHBtnActionPerformed
 
     private void ProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfileActionPerformed
         
@@ -292,10 +284,10 @@ public static main_menu getInstance() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BookingHistory;
     private javax.swing.JButton CompareCar;
     private javax.swing.JButton Profile;
     private javax.swing.JButton Searchcar;
+    private javax.swing.JButton bHBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -316,12 +308,19 @@ public static main_menu getInstance() {
     }
   
     public void showHistory(ActionListener listener){
-        BookingHistory.addActionListener(listener);
+        bHBtn.addActionListener(listener);
     }
   public void showProfile(ActionListener listener) {
         Profile.addActionListener(listener);
 }
   public void addCompareCarListener(ActionListener listener) {
         CompareCar.addActionListener(listener);
+    }
+  
+  // New method to clear the listViewer
+    public void clearListViewer() {
+        listViewer.removeAll();
+        listViewer.revalidate();
+        listViewer.repaint();
     }
 }

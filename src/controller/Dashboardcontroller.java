@@ -5,6 +5,8 @@
 package controller;
 
 
+
+
 import Carrental_GroupG_37B.BookingHistory;
 import Carrental_GroupG_37B.ProfileDashboard;
 import Carrental_GroupG_37B.carView;
@@ -13,7 +15,6 @@ import Carrental_GroupG_37B.main_menu;
 import Dao.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
@@ -35,6 +36,7 @@ public class Dashboardcontroller {
         this.userView.showHistory(new showHistory());
         this.userView.showProfile(new showProfile());
         this.userView.addCompareCarListener(new CompareCarsPanel());
+        this.userView.addSearchListener(new SearchListener()); // Added search listener call
         allCars();
     }
 
@@ -79,9 +81,41 @@ public class Dashboardcontroller {
     private class CompareCarsPanel implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            comparecar cmpCar = new comparecar();
-            CompareCarController c = new CompareCarController(cmpCar, id);
-            c.open();
+            try {
+                // Create a comparecar instance to get its jPanel1
+                comparecar cmpCar = new comparecar();
+                // Clear the listViewer and add the compare panel
+                userView.clearListViewer();
+                userView.listViewer.add(cmpCar.jPanel1);
+                userView.listViewer.revalidate();
+                userView.listViewer.repaint();
+
+                // Add listener for CompareButton
+                cmpCar.CompareButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        CompareCarController.compareCars(cmpCar); // Static call to reuse logic
+                    }
+                });
+
+                // Add listener for Exit button
+                cmpCar.Exit.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        userView.clearListViewer();
+                        try {
+                            allCars(); // Return to car list
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Dashboardcontroller.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
+
+                // Populate combo boxes (reuse CompareCarController logic)
+                CompareCarController.populateComboBoxes(cmpCar, cDao);
+            } catch (Exception ex) {
+                Logger.getLogger(Dashboardcontroller.class.getName()).log(Level.SEVERE, "Error loading compare view", ex);
+            }
         }
     }
 
@@ -102,7 +136,19 @@ public class Dashboardcontroller {
            ProfileDashboard profileDashboard = new ProfileDashboard();
             ProfileDashboardController c = new ProfileDashboardController(profileDashboard, id);
             c.open();
-            userView.setVisible(false);
+            userView.dispose();
+        }
+    }
+
+    // ActionListener for Searchcar button
+    private class SearchListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                allCars(); // Display all cars when search button is clicked
+            } catch (SQLException ex) {
+                Logger.getLogger(Dashboardcontroller.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

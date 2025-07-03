@@ -34,7 +34,7 @@ public class CompareCarController {
         this.compareView = compareView;
         this.userId = userId;
         this.compareView.compareListener(new CompareCars());
-        populateComboBoxes();
+        populateComboBoxes(); // Call the instance method to populate
     }
 
     public void open() {
@@ -45,31 +45,34 @@ public class CompareCarController {
         compareView.setVisible(false);
     }
 
-    private void populateComboBoxes() {
+    // Static method to populate combo boxes
+    public static void populateComboBoxes(comparecar view, CarDao cDao) {
         try {
-            cars = carDao.getAllCars(); // Show all cars for comparison
-            compareView.car1Selector.removeAll();
-            compareView.car2Selector.removeAll();
+            ArrayList<Car> cars = cDao.getAllCars();
+            view.car1Selector.setModel(new DefaultComboBoxModel<>(new String[]{"Select Car"}));
+            view.car2Selector.setModel(new DefaultComboBoxModel<>(new String[]{"Select Car"}));
             for (Car car : cars) {
-                compareView.car1Selector.addItem(car.getBrand() + " - " + car.getModel());
-                compareView.car2Selector.addItem(car.getBrand() + " - " + car.getModel());
+                view.car1Selector.addItem(car.getBrand() + " - " + car.getModel());
+                view.car2Selector.addItem(car.getBrand() + " - " + car.getModel());
             }
         } catch (Exception e) {
             Logger.getLogger(CompareCarController.class.getName()).log(Level.SEVERE, "Error populating combo boxes", e);
         }
     }
 
-    private void compareCars() {
-        String car1Name = (String) compareView.car1Selector.getSelectedItem();
-        String car2Name = (String) compareView.car2Selector.getSelectedItem();
+    // Static method to compare cars
+    public static void compareCars(comparecar view) {
+        String car1Name = (String) view.car1Selector.getSelectedItem();
+        String car2Name = (String) view.car2Selector.getSelectedItem();
 
         if (car1Name.equals("Select Car") || car2Name.equals("Select Car")) {
-            JOptionPane.showMessageDialog(compareView, "Please select both cars!");
+            JOptionPane.showMessageDialog(view, "Please select both cars!");
             return;
         }
 
         try {
-            cars = carDao.getAllCars(); // Fetch all cars for comparison
+            CarDao carDao = new CarDao();
+            ArrayList<Car> cars = carDao.getAllCars();
             Car car1 = null, car2 = null;
             for (Car car : cars) {
                 String carFullName = car.getBrand() + " - " + car.getModel();
@@ -90,19 +93,23 @@ public class CompareCarController {
                     },
                     new String[]{"Attribute", "Car 1", "Car 2"}
                 );
-                compareView.compareTable.setModel(model);
+                view.compareTable.setModel(model);
             } else {
-                JOptionPane.showMessageDialog(compareView, "Error fetching car details!");
+                JOptionPane.showMessageDialog(view, "Error fetching car details!");
             }
         } catch (Exception e) {
             Logger.getLogger(CompareCarController.class.getName()).log(Level.SEVERE, "Error comparing cars", e);
         }
     }
 
+    private void populateComboBoxes() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     private class CompareCars implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            compareCars();
+            compareCars(compareView); // Call the static compareCars method with the current view
         }
     }
 }

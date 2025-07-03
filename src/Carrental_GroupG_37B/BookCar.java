@@ -34,9 +34,6 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        Name = new javax.swing.JTextField();
-        Email = new javax.swing.JTextField();
-        PhoneNum = new javax.swing.JTextField();
         DateFirst = new com.toedter.calendar.JDateChooser();
         DateSecond = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
@@ -48,43 +45,6 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        Name.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                NameFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                NameFocusLost(evt);
-            }
-        });
-        Name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NameActionPerformed(evt);
-            }
-        });
-
-        Email.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                EmailFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                EmailFocusLost(evt);
-            }
-        });
-
-        PhoneNum.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                PhoneNumFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                PhoneNumFocusLost(evt);
-            }
-        });
-        PhoneNum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PhoneNumActionPerformed(evt);
-            }
-        });
 
         DateFirst.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -160,9 +120,6 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Pickup, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(Name)
-                                .addComponent(Email)
-                                .addComponent(PhoneNum)
                                 .addComponent(DateFirst, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                                 .addComponent(DateSecond, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(Drop, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -182,13 +139,7 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(PhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(5, 5, 5)
                 .addComponent(DateFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(DateSecond, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -196,7 +147,7 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
                 .addComponent(Pickup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(Drop, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ConfirmBooking)
                     .addComponent(Cancel))
@@ -217,14 +168,6 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NameActionPerformed
-
-    private void PhoneNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhoneNumActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PhoneNumActionPerformed
-
     private void PickupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PickupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PickupActionPerformed
@@ -232,57 +175,6 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
     private void DropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DropActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DropActionPerformed
-
-    private void NameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NameFocusGained
-      if (Name.getText().trim().equals("Enter Name")) {
-        Name.setText("");
-        Name.setForeground(java.awt.Color.BLACK);
-    }
-
-
-
-    }//GEN-LAST:event_NameFocusGained
-
-    private void NameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NameFocusLost
-         if (Name.getText().trim().isEmpty()) { // Check if text is empty after trimming
-            Name.setText("Enter Name");
-            Name.setForeground(java.awt.Color.GRAY);
-        }
-
-    }//GEN-LAST:event_NameFocusLost
-
-    private void EmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EmailFocusGained
-        if (Email.getText().trim().equals("Enter Email")) {
-            Email.setText("");
-            Email.setForeground(java.awt.Color.BLACK);
-        }
-    }//GEN-LAST:event_EmailFocusGained
-
-    private void EmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EmailFocusLost
-        if (Email.getText().trim().isEmpty()) {
-            Email.setText("Enter Email");
-            Email.setForeground(java.awt.Color.GRAY);
-        }
-    }//GEN-LAST:event_EmailFocusLost
-
-    private void PhoneNumFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PhoneNumFocusGained
-        if (PhoneNum.getText().trim().equals("Enter Phone Number")) {
-            PhoneNum.setText("");
-            PhoneNum.setForeground(java.awt.Color.BLACK);
-        }
-    }//GEN-LAST:event_PhoneNumFocusGained
-
-    private void PhoneNumFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PhoneNumFocusLost
-        if (PhoneNum.getText().trim().isEmpty()) {
-            PhoneNum.setText("Enter Phone Number");
-            PhoneNum.setForeground(java.awt.Color.GRAY);
-        } else if (PhoneNum.getText().trim().matches(".*[a-zA-Z].*")) { // Check for any alphabet
-            PhoneNum.setText("Enter Phone Number");
-            PhoneNum.setForeground(java.awt.Color.GRAY);
-            JOptionPane.showMessageDialog(null, "Alphabets not allowed! Enter numbers only.");
-        }
-    
-    }//GEN-LAST:event_PhoneNumFocusLost
 
     private void DateFirstFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DateFirstFocusGained
         if (DateFirst.getDate() == null) {
@@ -385,25 +277,11 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
     public com.toedter.calendar.JDateChooser DateFirst;
     public com.toedter.calendar.JDateChooser DateSecond;
     public javax.swing.JTextField Drop;
-    public javax.swing.JTextField Email;
-    public javax.swing.JTextField Name;
-    public javax.swing.JTextField PhoneNum;
     public javax.swing.JTextField Pickup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-// Added getter methods
-    public String getName() {
-        return Name.getText();
-    }
 
-    public String getEmail() {
-        return Email.getText();
-    }
-
-    public String getPhoneNum() {
-        return PhoneNum.getText();
-    }
 
     public Date getDateFirst() {
         return DateFirst.getDate();

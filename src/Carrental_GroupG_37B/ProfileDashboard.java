@@ -4,6 +4,10 @@
  */
 package Carrental_GroupG_37B;
 
+import controller.Logincontroller;
+import controller.ProfileDashboardController;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
@@ -18,6 +22,7 @@ public class ProfileDashboard extends javax.swing.JFrame {
      * Creates new form ProfileDashboard
      */
     public ProfileDashboard() {
+        
         initComponents();
       
     }
@@ -282,11 +287,7 @@ public class ProfileDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
-       // Close ProfileDashboard and open Login form
-        this.dispose(); // Close current window
-        // Assuming Login class is available
-        From_login1 loginForm = new  From_login1(); // Replace with your Login class name
-        loginForm.setVisible(true);
+      
     }//GEN-LAST:event_LogoutActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -301,7 +302,10 @@ public class ProfileDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void LogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutMouseClicked
-        // TODO add your handling code here:
+        From_login1 lgnForm = new From_login1();
+        Logincontroller c = new Logincontroller(lgnForm);
+        c.open();
+        dispose();
     }//GEN-LAST:event_LogoutMouseClicked
 
     /**
@@ -341,7 +345,7 @@ public class ProfileDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel Email;
-    private javax.swing.JButton Logout;
+    public javax.swing.JButton Logout;
     public javax.swing.JLabel Name;
     public javax.swing.JLabel PhoneNum;
     public javax.swing.JLabel Status;
@@ -360,4 +364,9 @@ public class ProfileDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     // End of variables declaration//GEN-END:variables
+
+   
+public void addLogoutButtonListener(ActionListener listener) {
+        Logout.addActionListener(listener);
+    }
 }

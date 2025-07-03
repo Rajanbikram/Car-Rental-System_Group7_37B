@@ -60,15 +60,16 @@ public class CarDao {
     }
     
     // Fetch all cars (unfiltered)
-    public ArrayList<Car> getAllCars() {
+    public ArrayList<Car> getAllCars() throws SQLException {
         ArrayList<Car> cars = new ArrayList<>();
         String sql = "SELECT * FROM cars ORDER BY created_at DESC";
         Connection conn = null;
         PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             conn = dbConnection.openConnection();
             stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 Car car = new Car(
                     rs.getString("image_path"),
@@ -85,25 +86,27 @@ public class CarDao {
                 cars.add(car);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SQLException("Error fetching all cars: " + e.getMessage(), e);
         } finally {
-            if (stmt != null) try { stmt.close(); } catch (SQLException e) { System.err.println("Error closing statement: " + e.getMessage()); }
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
             if (conn != null) dbConnection.closeConnection(conn);
         }
         return cars;
     }
 
     // Fetch cars filtered by agent ID
-    public ArrayList<Car> getAllCars(int agentId) {
+    public ArrayList<Car> getAllCars(int agentId) throws SQLException {
         ArrayList<Car> cars = new ArrayList<>();
         String sql = "SELECT * FROM cars WHERE added_by_agent_id = ? ORDER BY created_at DESC";
         Connection conn = null;
         PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             conn = dbConnection.openConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, agentId);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 Car car = new Car(
                     rs.getString("image_path"),
@@ -120,9 +123,10 @@ public class CarDao {
                 cars.add(car);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SQLException("Error fetching cars for agent ID " + agentId + ": " + e.getMessage(), e);
         } finally {
-            if (stmt != null) try { stmt.close(); } catch (SQLException e) { System.err.println("Error closing statement: " + e.getMessage()); }
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
             if (conn != null) dbConnection.closeConnection(conn);
         }
         return cars;
@@ -161,5 +165,24 @@ public class CarDao {
             if (conn != null) dbConnection.closeConnection(conn);
         }
         return car;
+    }
+
+    // Delete a car by ID
+    public boolean deleteCar(int carId) throws SQLException {
+        String sql = "DELETE FROM cars WHERE id = ?";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            conn = dbConnection.openConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, carId);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new SQLException("Error deleting car with ID " + carId + ": " + e.getMessage(), e);
+        } finally {
+            if (stmt != null) stmt.close();
+            if (conn != null) dbConnection.closeConnection(conn);
+        }
     }
 }

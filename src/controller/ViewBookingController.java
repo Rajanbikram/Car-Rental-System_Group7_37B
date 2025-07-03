@@ -15,7 +15,6 @@ import Carrental_GroupG_37B.BookingHistory;
 import Carrental_GroupG_37B.ViewBooking;
 import Dao.BookingDao;
 import java.awt.GridLayout;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -26,7 +25,6 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import model.Booking;
-
 import model.Car;
 
 public class ViewBookingController {
@@ -57,23 +55,23 @@ public class ViewBookingController {
     }
 
     private void loadBookings() {
-    ArrayList<Booking> bookings;
-    try {
-        // Reintroducing userId as placeholder (replace with actual userId)
-        int userId = 1; // Placeholder, adjust as needed
-        bookings = bDao.getMyBookings(userId); // Use getMyBookings for Booking data
-        view.Listview.removeAll();
-        for (Booking booking : bookings) {
-            System.out.println("dsd");
-            BookingHistory carpanel = new BookingHistory();
-            new BookingHistoryController(carpanel, booking);
-            view.Listview.add(carpanel);
-            view.Listview.add(Box.createVerticalStrut(10));
+        ArrayList<Booking> bookings;
+        try {
+            // Reintroducing userId as placeholder (replace with actual userId)
+            int userId = 1; // Placeholder, adjust as needed
+            bookings = bDao.getMyBookings(userId); // Use getMyBookings for Booking data
+            view.Listview.removeAll();
+            for (Booking booking : bookings) {
+                BookingHistory carpanel = new BookingHistory();
+                BookingHistoryController controller = new BookingHistoryController(carpanel, booking);
+                controller.setDeleteButtonVisible(false); // Hide DELETE button in ViewBooking
+                view.Listview.add(carpanel);
+                view.Listview.add(Box.createVerticalStrut(10));
+            }
+            view.Listview.revalidate();
+            view.Listview.repaint();
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewBookingController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        view.Listview.revalidate();
-        view.Listview.repaint();
-    } catch (SQLException ex) {
-        Logger.getLogger(ViewBookingController.class.getName()).log(Level.SEVERE, null, ex);
     }
-}
 }

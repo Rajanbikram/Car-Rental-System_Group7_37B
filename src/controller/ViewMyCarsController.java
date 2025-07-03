@@ -24,18 +24,18 @@ public class ViewMyCarsController {
     private final ViewMyCar view;
     private final int agentId;
 
-    public ViewMyCarsController(ViewMyCar view, int agentId) {
+    public ViewMyCarsController(ViewMyCar view, int agentId) throws SQLException {
         this.view = view;
         this.agentId = agentId;
         initController();
     }
 
-    private void initController() {
+    private void initController() throws SQLException {
         loadCarData();
         view.CloseButton.addActionListener(e -> view.dispose());
     }
 
-    private void loadCarData() {
+    private void loadCarData() throws SQLException {
         ArrayList<Car> cars = carDao.getAllCars(agentId);
         view.listview.removeAll();
         view.listview.setLayout(new GridLayout(0, 1, 10, 10));
@@ -69,10 +69,28 @@ public class ViewMyCarsController {
         JPanel buttonsPanel = new JPanel();
         JButton bookButton = new JButton("Book car");
         JButton deleteButton = new JButton("DELETE");
-        bookButton.setVisible(false);
+        bookButton.setVisible(false); // Hide book button
+        // Removed deleteButton.setVisible(true) to revert to default visibility
         buttonsPanel.add(bookButton);
         buttonsPanel.add(deleteButton);
+        buttonsPanel.setPreferredSize(new java.awt.Dimension(120, 30)); // Ensure minimum size for visibility
         card.add(buttonsPanel, BorderLayout.EAST);
+
+        // Add ActionListener for delete button
+        deleteButton.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(view, "Are you sure you want to delete " + car.getBrand() + " " + car.getModel() + "?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    carDao.deleteCar(car.getId()); // Delete car from database
+                    view.listview.remove(card); // Remove card from UI
+                    view.listview.revalidate();
+                    view.listview.repaint();
+                    JOptionPane.showMessageDialog(view, "Car deleted successfully!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(view, "Error deleting car: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         return card;
     }

@@ -64,15 +64,13 @@ public class BookCarController {
     }
 
     private void bookCar() throws SQLException {
-        String name = view.Name.getText().trim();
-        String email = view.Email.getText().trim();
-        String phoneNum = view.PhoneNum.getText().trim();
+
         Date startDate = view.DateFirst.getDate();
         Date endDate = view.DateSecond.getDate();
         String pickup = view.Pickup.getText().trim();
         String drop = view.Drop.getText().trim();
 
-        if (name.isEmpty() || email.isEmpty() || phoneNum.isEmpty() || startDate == null || endDate == null || pickup.isEmpty() || drop.isEmpty()) {
+        if ( startDate == null || endDate == null || pickup.isEmpty() || drop.isEmpty()) {
             JOptionPane.showMessageDialog(view, "All fields required!");
             return;
         }
@@ -123,11 +121,8 @@ public class BookCarController {
             history.clearBookings();
             history.addBookingPanel(bookingItem);
 
-            main_menu mainMenu = main_menu.getInstance();
-            mainMenu.listViewer.removeAll();
-            mainMenu.listViewer.add(history);
-            mainMenu.listViewer.revalidate();
-            mainMenu.listViewer.repaint();
+           
+           
         } else {
             JOptionPane.showMessageDialog(view, "Booking failed!");
         }

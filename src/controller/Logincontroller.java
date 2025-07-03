@@ -65,7 +65,9 @@ public class Logincontroller {
                 }
             
                 if (role.equals("User")) {
+                    
                     main_menu lgnForm = new main_menu();
+                    System.out.println("main menu");
                     Dashboardcontroller c = new Dashboardcontroller(lgnForm, id);
                     c.open();
                     close();

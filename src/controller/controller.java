@@ -48,7 +48,7 @@ class AddUserListener implements ActionListener {
             String UserName=userView.getUserName();
             String role = userView.getRole();
             String Password= userView.getPassword();
-            String ConfrimPassword=userView.getConfrimPassword();
+            String ConfrimPassword=userView.getConfirmpassword();
             
             if(! Password.equals(ConfrimPassword)){
                 JOptionPane.showMessageDialog(null,"Password Mismatch!");

@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
  * @author mamta sah
  */
 public class From_login1 extends javax.swing.JFrame {
+ 
 
     /**
      * Creates new form From_login1
@@ -408,9 +409,9 @@ public class From_login1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JButton lgnBtn;
-    private javax.swing.JPasswordField passwordField;
-    private javax.swing.JTextField uNameField;
+    public javax.swing.JButton lgnBtn;
+    public javax.swing.JPasswordField passwordField;
+    public javax.swing.JTextField uNameField;
     // End of variables declaration//GEN-END:variables
 
     

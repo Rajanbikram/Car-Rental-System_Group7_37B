@@ -293,8 +293,7 @@ public class Addcar extends javax.swing.JFrame {
     }//GEN-LAST:event_priceActionPerformed
 
     private void AddbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddbtnActionPerformed
-            BookCar bookCarPopup = new BookCar();
-        bookCarPopup.setVisible(true);
+           
     }//GEN-LAST:event_AddbtnActionPerformed
 
     private void BrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrowseActionPerformed
