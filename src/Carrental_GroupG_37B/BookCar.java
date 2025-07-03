@@ -14,7 +14,8 @@ import javax.swing.JOptionPane;
  * @author mamta sah
  */
 public class BookCar extends javax.swing.JFrame {
-public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
+public javax.swing.JComboBox<String> carSelection; 
+// Add this in Form Editor
     /**
      * Creates new form BookCar
      */
@@ -37,13 +38,13 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
         Name = new javax.swing.JTextField();
         Email = new javax.swing.JTextField();
         PhoneNum = new javax.swing.JTextField();
-        DateFirst = new com.toedter.calendar.JDateChooser();
-        DateSecond = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         Pickup = new javax.swing.JTextField();
         Drop = new javax.swing.JTextField();
         ConfirmBooking = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,24 +84,6 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
         PhoneNum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PhoneNumActionPerformed(evt);
-            }
-        });
-
-        DateFirst.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                DateFirstFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                DateFirstFocusLost(evt);
-            }
-        });
-
-        DateSecond.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                DateSecondFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                DateSecondFocusLost(evt);
             }
         });
 
@@ -151,27 +134,26 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Pickup, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(Name)
-                                .addComponent(Email)
-                                .addComponent(PhoneNum)
-                                .addComponent(DateFirst, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                                .addComponent(DateSecond, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(Drop, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 32, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(ConfirmBooking)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Cancel)))
+                        .addComponent(Cancel))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Pickup, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                            .addComponent(Name, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                            .addComponent(Email)
+                            .addComponent(PhoneNum)
+                            .addComponent(Drop, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(128, 128, 128)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,10 +166,10 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
                 .addGap(18, 18, 18)
                 .addComponent(PhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(DateFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(DateSecond, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(Pickup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(Drop, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -373,13 +355,13 @@ public javax.swing.JComboBox<String> carSelection; // Add this in Form Editor
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton Cancel;
     public javax.swing.JButton ConfirmBooking;
-    public com.toedter.calendar.JDateChooser DateFirst;
-    public com.toedter.calendar.JDateChooser DateSecond;
     public javax.swing.JTextField Drop;
     public javax.swing.JTextField Email;
     public javax.swing.JTextField Name;
     public javax.swing.JTextField PhoneNum;
     public javax.swing.JTextField Pickup;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
